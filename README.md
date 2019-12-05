@@ -20,7 +20,11 @@
 </table>
 
 ## Introduction
-CryptoCompare offers industry standard FIX connectivity based on an unmodified [FIX 4.4](https://www.fixtrading.org/standards/fix-4-4/) for market data access. Low latency live streaming trade and orderbook data is available for a number of exchanges. To gain access to CryptoCompare FIX connectivity, please contact us [by email.](mailto:data@cryptocompare.com)
+CryptoCompare offers industry standard FIX connectivity based on an unmodified [FIX 4.4](https://www.fixtrading.org/standards/fix-4-4/) for market data access. Low latency live streaming trade and orderbook data is available for a number of exchanges. 
+
+To gain access to CryptoCompare FIX connectivity, please contact us [by email.](mailto:data@cryptocompare.com)
+
+Once access has been granted, connectivity can be established by connecting to fix.cryptocompare.com.
 
 This document serves as a developer guide for integrating with the FIX streaming service.
 
@@ -63,6 +67,8 @@ SecurityList messages have 3 types:
 * INSTRUMENT_DATA_TEMPORARILY_UNAVAILABLE (4) - Backend components are currently initialising. The client should wait 2 seconds then re-send the request.
 * NOT_AUTHORIZED_TO_RETRIEVE_INSTRUMENT_DATA (3) - The API key for the request was invalid. The client will need to logoff then logon with a valid API Key.
 
-Please note, only a single concurrent connection is supported per API key.
+**Please note**, only a single concurrent connection is supported per API key.
 
 Based on the Symbols returned in the SecurityList it is possible to subscribe using a [Market Data Request](https://www.onixs.biz/fix-dictionary/4.4/msgtype_v_86.html) message with Symbols formatted as per Market representations defined above.
+
+Once a subscription has been established to a valid market, the client will receive regular [MarketD Data](https://www.onixs.biz/fix-dictionary/4.4/msgtype_w_87.html) messages.
