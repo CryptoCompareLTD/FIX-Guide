@@ -20,13 +20,19 @@
 </table>
 
 ## Introduction
-CryptoCompare offers industry standard FIX connectivity based on an unmodified [FIX 4.4](https://www.fixtrading.org/standards/fix-4-4/) for market data access. Low latency live streaming trade and orderbook data is available for a number of exchanges. 
+CryptoCompare offers industry standard FIX connectivity based on an unmodified [FIX 4.4](https://www.fixtrading.org/standards/fix-4-4/) for market data access. Low latency live streaming trade and orderbook data is available for a number of exchanges.
 
 To gain access to CryptoCompare FIX connectivity, please contact us [by email.](mailto:data@cryptocompare.com)
 
-Once access has been granted, connectivity can be established by connecting to fix.cryptocompare.com.
-
 This document serves as a developer guide for integrating with the FIX streaming service.
+
+## Connection options
+
+Once access has been granted, connectivity can be established by connecting to fix.cryptocompare.com:8200.
+
+A standard [FIX4.4 dictionary](FIX44.xml) is required for connectivity. In addition, for QuickFIX library users, we provide a sample [connection configuration](CCFIX.ini) file.
+
+Each client will have to modify the *SenderCompID* field within this config to match their uniquely provided ID. This will be provided by CryptoCompare when a client has been successfully provisioned for access.
 
 ## Market representations
 
