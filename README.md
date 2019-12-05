@@ -54,13 +54,13 @@ The idealised message flow on connection is as follows.
 || MarketDataRequest | -> ||
 || MarketData | <- ||
 
-On establishing a TCP connection, the connecting FIX client is expected to send a [Logon](https://www.onixs.biz/fix-dictionary/4.4/msgtype_a_65.html) message as the first message. It is expected that the [password field](https://www.onixs.biz/fix-dictionary/4.4/tagnum_554.html) of the Logon message will contain the API key.
+On establishing a TCP connection, the connecting FIX client is expected to send a [Logon](https://www.onixs.biz/fix-dictionary/4.4/msgtype_a_65.html) (A) message as the first message. It is expected that the [password field](https://www.onixs.biz/fix-dictionary/4.4/tagnum_554.html) of the Logon message will contain the API key.
 
-The server will respond with a Logon should the connection be established successfully or a [LogOut](https://www.onixs.biz/fix-dictionary/4.4/msgType_5_5.html) otherwise.
+The server will respond with a Logon should the connection be established successfully or a [LogOut](https://www.onixs.biz/fix-dictionary/4.4/msgType_5_5.html) (5) otherwise.
 
-Once the connection is established, to establish what Symbols are available, the client is **expected** to send a [SecurityListRequest](https://www.onixs.biz/fix-dictionary/4.4/msgtype_x_120.html) message. 
+Once the connection is established, to establish what Symbols are available, the client is **expected** to send a [SecurityListRequest](https://www.onixs.biz/fix-dictionary/4.4/msgtype_x_120.html) (x) message. 
 
-The server will respond with a [SecurityList](https://www.onixs.biz/fix-dictionary/4.4/msgType_y_121.html) message with status information in the [SecurityRequestResult](https://www.onixs.biz/fix-dictionary/4.4/tagNum_560.html) field.
+The server will respond with a [SecurityList](https://www.onixs.biz/fix-dictionary/4.4/msgType_y_121.html) (y) message with status information in the [SecurityRequestResult](https://www.onixs.biz/fix-dictionary/4.4/tagNum_560.html) field.
 
 SecurityList messages have 3 types:
 * VALID_REQUEST (0) - The request was successful and the instrument list is attached to this message.
@@ -69,6 +69,8 @@ SecurityList messages have 3 types:
 
 **Please note**, only a single concurrent connection is supported per API key.
 
-Based on the Symbols returned in the SecurityList it is possible to subscribe using a [Market Data Request](https://www.onixs.biz/fix-dictionary/4.4/msgtype_v_86.html) message with Symbols formatted as per Market representations defined above.
+Based on the Symbols returned in the SecurityList it is possible to subscribe using a [Market Data Request](https://www.onixs.biz/fix-dictionary/4.4/msgtype_v_86.html) (V) message with Symbols formatted as per Market representations defined above.
 
-Once a subscription has been established to a valid market, the client will receive regular [MarketD Data](https://www.onixs.biz/fix-dictionary/4.4/msgtype_w_87.html) messages.
+Once one or more valid subscriptions have been established to valid markets, the client will receive regular [MarketD Data](https://www.onixs.biz/fix-dictionary/4.4/msgtype_w_87.html) (W) messages whenever market updates occur.
+
+Other message types are unsupported at this time.
