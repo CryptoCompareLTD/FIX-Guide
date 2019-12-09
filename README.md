@@ -82,6 +82,6 @@ SecurityList messages have 3 types:
 
 Based on the Symbols returned in the SecurityList it is possible to subscribe using a [Market Data Request](https://www.onixs.biz/fix-dictionary/4.4/msgtype_v_86.html) (V) message with Symbols formatted as per Market representations defined above.
 
-Once one or more valid subscriptions have been established to valid markets, the client will receive regular [MarketD Data](https://www.onixs.biz/fix-dictionary/4.4/msgtype_w_87.html) (W) messages whenever market updates occur.
+Once one or more valid subscriptions have been established to valid markets, the client will receive regular [Market Data](https://www.onixs.biz/fix-dictionary/4.4/msgtype_w_87.html) (W) messages whenever market updates occur.
 
 Other message types are unsupported at this time.
