@@ -45,6 +45,11 @@ A Symbol may also contain an exchange name without a market.
 
 > ExchangeName
 
+## Market Data types
+
+When requesting data from the FIX endpoint, the client should send a [MarketDataRequest](https://www.onixs.biz/fix-dictionary/4.4/msgType_V_86.html) (V) message. Three stream types will be available through this endpoint: trade and orderbook level 1 & 2. The type of data being requested should be indicated in the [MDEntryType](https://www.onixs.biz/fix-dictionary/4.4/tagNum_269.html) (269) field in line with the FIX documentation, with the addition of setting the [MarketDepth](https://www.onixs.biz/fix-dictionary/4.4/tagNum_264.html) (264) field to '1' for level 1 orderbook Data.
+In order to distinguish between level 1 & 2 orderbook data, we mark each level 1 message by writing "TOB" into the 'text' field. 
+
 ## Message Flow
 
 FIX connectivity relies on an unmodified FIX 4.4 dictionary, an API key for authentication and IP whitelisting.
