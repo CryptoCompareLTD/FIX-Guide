@@ -2,10 +2,11 @@ import time
 import quickfix
 import quickfix44
 
-__SOH__ = chr(1)
 
 def messageToString(message):
-    return message.toString().replace(__SOH__, "|")
+    fix_delimiter = chr(1)
+    return message.toString().replace(fix_delimiter, "|")
+
 
 def securityListRequest(sessionID):
     # https://www.onixs.biz/fix-dictionary/4.4/msgtype_x_120.html
@@ -13,6 +14,7 @@ def securityListRequest(sessionID):
     message.setField(quickfix.SecurityReqID("TEST"))
     message.setField(quickfix.SecurityListRequestType(4))  # All securities
     return message
+
 
 def marketDataRequest(sessionID):
     # https://www.onixs.biz/fix-dictionary/4.4/msgtype_v_86.html
