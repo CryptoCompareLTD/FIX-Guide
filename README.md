@@ -20,13 +20,19 @@
 </table>
 
 ## Introduction
-CryptoCompare offers industry standard FIX connectivity based on an unmodified [FIX 4.4](https://www.fixtrading.org/standards/fix-4-4/) for market data access. Low latency live streaming trade and orderbook data is available for a number of exchanges. 
+CryptoCompare offers industry standard FIX connectivity based on an unmodified [FIX 4.4](https://www.fixtrading.org/standards/fix-4-4/) for market data access. Low latency live streaming trade and orderbook data is available for a number of exchanges.
 
 To gain access to CryptoCompare FIX connectivity, please contact us [by email.](mailto:data@cryptocompare.com)
 
-Once access has been granted, connectivity can be established by connecting to fix.cryptocompare.com.
-
 This document serves as a developer guide for integrating with the FIX streaming service.
+
+## Connection options
+
+Once access has been granted, connectivity can be established by connecting to fix.cryptocompare.com:8200.
+
+A standard [FIX4.4 dictionary](FIX44.xml) is required for connectivity. In addition, for QuickFIX library users, we provide a sample [connection configuration](CCFIX.ini) file.
+
+Each client will have to modify the *SenderCompID* field within this config to match their uniquely provided ID. This will be provided by CryptoCompare when a client has been successfully provisioned for access.
 
 ## Market representations
 
@@ -38,6 +44,11 @@ Symbol format with both an Exchange and Market:
 A Symbol may also contain an exchange name without a market.
 
 > ExchangeName
+
+## Market Data types
+
+When requesting data from the FIX endpoint, the client should send a [MarketDataRequest](https://www.onixs.biz/fix-dictionary/4.4/msgType_V_86.html) (V) message. Three stream types will be available through this endpoint: trade and orderbook level 1 & 2. The type of data being requested should be indicated in the [MDEntryType](https://www.onixs.biz/fix-dictionary/4.4/tagNum_269.html) (269) field in line with the FIX documentation, with the addition of setting the [MarketDepth](https://www.onixs.biz/fix-dictionary/4.4/tagNum_264.html) (264) field to '1' for level 1 orderbook Data.
+In order to distinguish between level 1 & 2 orderbook data, we mark each level 1 message by writing "TOB" into the 'text' field. 
 
 ## Message Flow
 
@@ -71,6 +82,6 @@ SecurityList messages have 3 types:
 
 Based on the Symbols returned in the SecurityList it is possible to subscribe using a [Market Data Request](https://www.onixs.biz/fix-dictionary/4.4/msgtype_v_86.html) (V) message with Symbols formatted as per Market representations defined above.
 
-Once one or more valid subscriptions have been established to valid markets, the client will receive regular [MarketD Data](https://www.onixs.biz/fix-dictionary/4.4/msgtype_w_87.html) (W) messages whenever market updates occur.
+Once one or more valid subscriptions have been established to valid markets, the client will receive regular [Market Data](https://www.onixs.biz/fix-dictionary/4.4/msgtype_w_87.html) (W) messages whenever market updates occur.
 
 Other message types are unsupported at this time.
